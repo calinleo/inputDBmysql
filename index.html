@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    Enter your email
+    <form>
+        <input type="text" id="email" name="email">
+        <input type="button" value="Submit" onclick="Send_Data()">
+    </form>
+    <div id="response"></div>
+
+    <script>
+        function Send_Data(){
+            
+            var email = document.getElementById("email").value;
+            // console.log(email);
+
+            var httpr = new XMLHttpRequest();
+            httpr.open("POST", "./db/get_data.php", true);
+            httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            httpr.onreadystatechange = function(){
+                if(httpr.readyState==4 && httpr.status==200){
+                    // document.getElementById("response").innerHTML = httpr.statusText ;
+                    document.getElementById("response").innerHTML = httpr.responseText ;
+                }
+            }
+            httpr.send ("email=" + email );
+
+        }
+    </script>
+</body>
+</html>
